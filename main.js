@@ -62,7 +62,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 
 const fs = require('fs')
-const apiKey = '1PlnSZLg2bBSHwqsrhxK9SsyjwTy15kP'
+const apiKey = 'YOUR API KEY HERE'
 let tinify = require("tinify")
 const filesize = require('filesize')
 
