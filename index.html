@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Electiny</title>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./node_modules/angular/angular-csp.css">
+        <link rel="stylesheet" href="./node_modules/angular-toastr/dist/angular-toastr.css">
+        <link rel="stylesheet" href="./node_modules/muicss/dist/css/mui.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" href="./index.css">
+        <script src="./node_modules/angular/angular.js"></script>
+        <script src="./node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+        <script src="./node_modules/angular-toastr/dist/angular-toastr.tpls.js"></script>
+        <script src="./node_modules/muicss/dist/angular/mui-angular.js"></script>
+        <script src="./node_modules/filesize/lib/filesize.es6.js"></script>
+        <script src="./index.js"></script>
+    </head>
+    <body ng-app="electronTinypng" style="background: #454545; padding-top: 20px; padding-bottom: 20px;" ng-controller="mainController">
+        <mui-container fluid>
+            <mui-panel class="card">
+                <mui-row>
+                    <mui-col sm="6" class="mui--text-left">
+                    </mui-col>
+                    <mui-col sm="6" class="mui--text-left">
+                    </mui-col>
+                </mui-row>
+                <div class="mui--text-body1" style="display: flex; height: 100px; justify-content: center;
+                     align-items: center; border: 2px dashed #fff; margin-bottom: 15px; cursor: pointer;
+                     overflow: hidden;"
+                    ngf-drop="compressFiles($files)" ngf-multiple="true">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp; Drop your image(s) here
+                </div>
+                <mui-row>
+                    <mui-col xs="6" class="mui--text-left" style="height: 25px; line-height: 25px;">
+                        Monthly Usage: <strong>{{usage}}</strong>
+                    </mui-col>
+                    <mui-col xs="6" class="mui--text-right" style="height: 25px; line-height: 25px;">
+                        <input type="file" id="getFile" webkitdirectory directory multiple/>
+                    </mui-col>
+                </mui-row>
+            </mui-panel>
+            <mui-panel class="card" ng-show="filesToCompress.length > 0">
+                <div class="file-to-compress status-{{f.status}}" ng-repeat="f in filesToCompress | orderBy: '-timeAdded'" title="{{f.path}}">
+                    <span class="status-text" style="margin-right: 3px;">
+                        <i class="fa fa-spinner fa-pulse fa-sm" style="color: rgb(55, 175, 255);" ng-show="f.status === 'Pending'"></i>
+                        <i class="fa fa-check fa-fw" aria-hidden="true" style="color: rgb(55, 255, 138);" ng-show="f.status === 'Compressed'"></i>
+                        <i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true" style="color: rgb(255, 96, 96);" ng-show="f.status === 'Error'"></i>
+                    </span>
+                    <span class="name-text"><a href="file://{{f.path}}" target="_blank"><strong>Original</strong></a></span>
+                    <span class="name-text"><a href="file://{{f.pathTo}}" target="_blank"><strong>{{f.name}}</strong></a></span>
+                    <span class="size-text">{{f.readableSize}}</span>
+                    <span class="compressed-size-text" ng-show="f.readableSizeCompressed">{{f.readableSizeCompressed}}</span>
+                </div>
+            </mui-panel>
+        </mui-container>
+    </body>
+</html>
