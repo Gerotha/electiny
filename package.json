@@ -9,7 +9,7 @@
     "build": "electron-packager ./ --all --overwrite"
   },
   "dependencies": {
-    "angular": "^1.7.9",
+    "angular": "^1.8.3",
     "angular-toastr": "^2.1.1",
     "filesize": "^3.3.0",
     "font-awesome": "^4.7.0",
